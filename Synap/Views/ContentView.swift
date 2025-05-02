@@ -10,47 +10,49 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @State var showAll = false
+    @State var showCompleted = false
     
+    // Get incomplete trackers
     @Query(
-        filter: #Predicate<Todo> { todo in
-            !todo.isDone
+        filter: #Predicate<Tracker> { tracker in
+            !tracker.isCompleted
         },
         sort: [
-            .init(\Todo.creationDate, order: .reverse),
-            .init(\Todo.title)
+            .init(\Tracker.creationDate, order: .reverse),
+            .init(\Tracker.title)
         ],
-        animation: .bouncy) private var todos: [Todo]
+        animation: .bouncy) private var todos: [Tracker]
     
+    // Get completed trackers
     @Query(
-        filter: #Predicate<Todo> { todo in
-            todo.isDone
+        filter: #Predicate<Tracker> { tracker in
+            tracker.isCompleted
         },
         sort: [
-            .init(\Todo.creationDate, order: .reverse),
-            .init(\Todo.title)
+            .init(\Tracker.creationDate, order: .reverse),
+            .init(\Tracker.title)
         ],
-        animation: .bouncy) private var dones: [Todo]
+        animation: .bouncy) private var dones: [Tracker]
     
     var body: some View {
         NavigationSplitView {
             List {
                 ForEach(todos) { todo in
                     NavigationLink {
-                        TodoDetailView(todo: todo)
+                        TrackerDetailView(tracker: todo)
                     } label: {
-                        TodoRow(todo: todo)
+                        TrackerRow(tracker: todo)
                     }
                 }
                 .onDelete(perform: deleteItems)
                 
-                if(showAll && !dones.isEmpty) {
+                if(showCompleted && !dones.isEmpty) {
                     Section("Completed") {
                         ForEach(dones) { done in
                             NavigationLink {
-                                TodoDetailView(todo: done)
+                                TrackerDetailView(tracker: done)
                             } label: {
-                                TodoRow(todo: done)
+                                TrackerRow(tracker: done)
                             }
                         }
                         .onDelete(perform: deleteItems)
@@ -60,7 +62,7 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    Toggle("Show all", isOn: $showAll)
+                    Toggle("Show Completed", isOn: $showCompleted)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -71,7 +73,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Todo list")
+            .navigationTitle("Trackers")
             
             
         } detail: {
@@ -80,7 +82,7 @@ struct ContentView: View {
     }
 
     private func addItem() {
-        let newItem = Todo(title: "Title")
+        let newItem = Tracker(title: "Title")
         modelContext.insert(newItem)
     }
 
@@ -93,14 +95,21 @@ struct ContentView: View {
 
 #Preview {
     let modelContainer = try! ModelContainer(
-        for: Todo.self,
+        for: Tracker.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
     )
 
     let context = modelContainer.mainContext
 
-    context.insert(Todo(title: "Preview Task 1"))
-    context.insert(Todo(title: "Preview Task 2"))
+    var tracker1 = Tracker(title: "Preview Task 1")
+    tracker1.counter = 0
+    tracker1.goal = 2
+    context.insert(tracker1)
+    
+    var tracker2 = Tracker(title: "Preview Task 2")
+    tracker2.counter = 1
+    tracker2.goal = 3
+    context.insert(tracker2)
     
     return ContentView()
         .modelContainer(modelContainer)

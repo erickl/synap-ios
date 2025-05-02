@@ -12,7 +12,7 @@ import SwiftData
 struct SynapApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Todo.self,
+            Tracker.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
