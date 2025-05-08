@@ -11,9 +11,10 @@ struct TrackerDetailView: View {
     @Bindable var tracker: Tracker
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             TextField("New Tracker", text: $tracker.title)
-            ProgressIndicator(progress: tracker.progress)
+            Text("Goal: \(tracker.goal?.toString() ?? "")")
+            ProgressIndicator(progress: tracker.goal?.progress ?? 0)
         }
         .padding()
     }
@@ -21,7 +22,5 @@ struct TrackerDetailView: View {
 
 #Preview {
     var tracker = Tracker(title: "Title")
-    tracker.goal = 2
-    tracker.counter = 1
     return TrackerDetailView(tracker: tracker)
 }

@@ -15,7 +15,11 @@ struct TrackerRow: View {
             ProgressIncrementor(tracker: tracker)
             
             VStack(alignment: .leading) {
-                Text("\(tracker.title): \(tracker.counter)/\(tracker.goal)")
+                Text(tracker.title)
+                let progress = tracker.goal?.progress ?? 0
+                if(progress != 0) {
+                    Text("Progress: \(progress)")
+                }
                 Text(tracker.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))
             }
         }
@@ -23,9 +27,6 @@ struct TrackerRow: View {
 }
 
 #Preview {
-    var tracker = Tracker(title: "Title")
-    tracker.counter = 0
-    tracker.goal = 2
-    
+    var tracker = Tracker(title: "Title")    
     return TrackerRow(tracker: tracker)
 }

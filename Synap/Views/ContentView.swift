@@ -102,13 +102,9 @@ struct ContentView: View {
     let context = modelContainer.mainContext
 
     var tracker1 = Tracker(title: "Preview Task 1")
-    tracker1.counter = 0
-    tracker1.goal = 2
     context.insert(tracker1)
     
     var tracker2 = Tracker(title: "Preview Task 2")
-    tracker2.counter = 1
-    tracker2.goal = 3
     context.insert(tracker2)
     
     return ContentView()

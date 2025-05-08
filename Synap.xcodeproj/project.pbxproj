@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C934CC802DC639400055381F /* TriggerTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C934CC7F2DC639400055381F /* TriggerTime.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C934CC242DB0D8080055381F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		C934CC112DB0D8050055381F /* Synap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Synap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C934CC232DB0D8080055381F /* SynapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SynapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C934CC2D2DB0D8080055381F /* SynapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SynapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C934CC7F2DC639400055381F /* TriggerTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TriggerTime.swift; path = Synap/Models/TriggerTime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		C934CC082DB0D8050055381F = {
 			isa = PBXGroup;
 			children = (
+				C934CC7F2DC639400055381F /* TriggerTime.swift */,
 				C934CC132DB0D8050055381F /* Synap */,
 				C934CC262DB0D8080055381F /* SynapTests */,
 				C934CC302DB0D8080055381F /* SynapUITests */,
@@ -236,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C934CC802DC639400055381F /* TriggerTime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

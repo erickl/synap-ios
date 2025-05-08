@@ -12,9 +12,9 @@ struct ProgressIncrementor: View {
         
     var body: some View {
         Button(action: {
-            tracker.increment()
+            tracker.addEntry()
         }) {
-            ProgressIndicator(progress: tracker.progress)
+            ProgressIndicator(progress: tracker.goal?.progress ?? 0)
         }
         .buttonStyle(.plain)  // Removes any extra button styling
     }
@@ -22,7 +22,5 @@ struct ProgressIncrementor: View {
 
 #Preview {
     var tracker = Tracker(title: "New Task")
-    tracker.counter = 1
-    tracker.goal = 2
     return ProgressIncrementor(tracker: tracker)
 }

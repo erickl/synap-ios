@@ -13,31 +13,26 @@ final class Tracker {
     var creationDate: Date = Date()
     var title: String
     var priority: Int = 0
-    var counter: Int = 0
-    var goal: Int = 1
+    var runningTotal: Int = 0
     var isCompleted = false
     
-    var progress: Double {
-        Double(counter)/Double(goal)
-    }
+    @Relationship(deleteRule: .cascade, inverse: \Goal.tracker)
+    var goal : Goal? // todo: should I be able to have an array of goals? 
+    
+    @Relationship(deleteRule: .cascade, inverse: \Entry.tracker)
+    var entries : [Entry] = []
     
     @Attribute(.externalStorage)
     var image: Data?
-    
-    //@Attribute(.unique) // makes a field unique
     
     init(title: String, priority: Int = 0) {
         self.title = title
         self.priority = priority
     }
     
-    func increment() {
-        counter += 1
+    public func addEntry(amount: Decimal = 1) {
+        entries.append(Entry(tracker: self, amount: amount))
         
-        isCompleted = calculateIfCompleted()
-    }
-    
-    private func calculateIfCompleted() -> Bool {
-        return counter >= goal
+        isCompleted = goal != nil ? goal!.isComplete() : true
     }
 }
